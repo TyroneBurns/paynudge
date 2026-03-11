@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#00D4A8">
+    <title>PayNudge Beta — Get Paid Faster Without Damaging Client Relationships</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=Syne:wght@400;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #EDD9CB;
+            background: #0D0F1A;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Noise overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.35;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(13, 15, 26, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(0, 212, 168, 0.1);
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #00D4A8;
+            text-decoration: none;
+        }
+
+        .nav-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: #FFB946;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0D0F1A 0%, #1A1D2E 100%);
+            padding: 6rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 212, 168, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero .container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            color: #EDD9CB;
+        }
+
+        .hero h1 .highlight {
+            color: #00D4A8;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            opacity: 0.85;
+            margin-bottom: 2.5rem;
+            color: #B8A899;
+        }
+
+        .cta-button {
+            background: #00D4A8;
+            color: #0D0F1A;
+            padding: 1.1rem 2.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1.025rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .cta-button:hover {
+            background: #00E8B8;
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(0, 212, 168, 0.3);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        section h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: #EDD9CB;
+        }
+
+        section h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: #00D4A8;
+            font-weight: 700;
+        }
+
+        /* Problem Section */
+        .problems {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .problem-card {
+            background: linear-gradient(135deg, #1F2333 0%, #15171F 100%);
+            padding: 2.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(0, 212, 168, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .problem-card:hover {
+            border-color: rgba(0, 212, 168, 0.3);
+            background: linear-gradient(135deg, #252C3D 0%, #1A1D2E 100%);
+        }
+
+        .problem-card h3 {
+            color: #FFB946;
+        }
+
+        .problem-card p {
+            color: #B8A899;
+            line-height: 1.7;
+        }
+
+        /* Solution Section */
+        .solution-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .solution-card {
+            background: linear-gradient(135deg, #1F2333 0%, #15171F 100%);
+            padding: 2.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(0, 212, 168, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .solution-card:hover {
+            border-color: rgba(0, 212, 168, 0.4);
+            background: linear-gradient(135deg, #252C3D 0%, #1A1D2E 100%);
+        }
+
+        .solution-card strong {
+            color: #00D4A8;
+            font-size: 1.1rem;
+        }
+
+        .solution-card p {
+            color: #B8A899;
+            line-height: 1.7;
+            margin-top: 1rem;
+        }
+
+        /* How It Works */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            text-align: center;
+            padding: 2.5rem;
+            background: linear-gradient(135deg, #1F2333 0%, #15171F 100%);
+            border-radius: 0.5rem;
+            border: 1px solid rgba(0, 212, 168, 0.1);
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #00D4A8 0%, #00B894 100%);
+            color: #0D0F1A;
+            border-radius: 0.5rem;
+            font-size: 1.75rem;
+            font-weight: 800;
+            font-family: 'Syne', sans-serif;
+            margin: 0 auto 1.5rem;
+        }
+
+        .step h3 {
+            color: #00D4A8;
+        }
+
+        .step p {
+            color: #B8A899;
+            line-height: 1.7;
+        }
+
+        /* Social Proof */
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial {
+            background: linear-gradient(135deg, #1F2333 0%, #15171F 100%);
+            padding: 2rem;
+            border-radius: 0.5rem;
+            border-left: 4px solid #00D4A8;
+        }
+
+        .testimonial p {
+            color: #B8A899;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: #00D4A8;
+            font-family: 'Syne', sans-serif;
+        }
+
+        /* Beta Signup */
+        .beta-signup {
+            background: linear-gradient(135deg, #1F2333 0%, #15171F 100%);
+            border: 1px solid rgba(0, 212, 168, 0.2);
+            padding: 5rem 2rem;
+            text-align: center;
+            border-radius: 0.5rem;
+            margin: 4rem 2rem;
+        }
+
+        .beta-signup .container {
+            max-width: 600px;
+        }
+
+        .beta-signup h2 {
+            color: #EDD9CB;
+        }
+
+        .beta-signup p {
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            color: #B8A899;
+        }
+
+        .email-input-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .email-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 1.1rem 1.5rem;
+            border: 1px solid rgba(0, 212, 168, 0.2);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            background: #0D0F1A;
+            color: #EDD9CB;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .email-input::placeholder {
+            color: #6B5F54;
+        }
+
+        .email-input:focus {
+            outline: none;
+            border-color: #00D4A8;
+            box-shadow: 0 0 0 3px rgba(0, 212, 168, 0.1);
+        }
+
+        .submit-button {
+            background: #00D4A8;
+            color: #0D0F1A;
+            padding: 1.1rem 2.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 700;
+        }
+
+        .submit-button:hover {
+            background: #00E8B8;
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(0, 212, 168, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #0D0F1A 0%, #1A1D2E 100%);
+            color: #B8A899;
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(0, 212, 168, 0.1);
+            position: relative;
+            z-index: 2;
+        }
+
+        footer p {
+            margin: 0.75rem 0;
+        }
+
+        footer a {
+            color: #00D4A8;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #00E8B8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            section {
+                padding: 3rem 1.5rem;
+            }
+
+            section h2 {
+                font-size: 1.75rem;
+            }
+
+            .email-input-group {
+                flex-direction: column;
+            }
+
+            .email-input {
+                min-width: 100%;
+            }
+
+            nav .container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .logo {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <a href="#" class="logo">PayNudge</a>
+                <span class="nav-badge">Beta Access</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="container">
+            <h1>Get Paid Faster<br><span class="highlight">Without Damaging</span> Client Relationships</h1>
+            <p>Automated, soft-touch payment reminders that keep your clients happy and your cash flow healthy.</p>
+            <a href="#beta" class="cta-button">Join Beta (Free)</a>
+        </div>
+    </div>
+
+    <!-- Problem Section -->
+    <section>
+        <div class="container">
+            <h2>The Freelancer's Dilemma</h2>
+            <div class="problems">
+                <div class="problem-card">
+                    <h3>📉 Damaged Relationships</h3>
+                    <p>Every time you chase payment, you risk the relationship. Clients feel nagged. You feel frustrated. Nobody wins.</p>
+                </div>
+                <div class="problem-card">
+                    <h3>💰 Cash Flow Pain</h3>
+                    <p>Late payments mean personal loans, missed expenses, and constant worry about making payroll—yours.</p>
+                </div>
+                <div class="problem-card">
+                    <h3>⏱️ Time Waste</h3>
+                    <p>30% of your time goes to chasing invoices instead of doing the work you love. That's real revenue loss.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section>
+        <div class="container">
+            <h2>PayNudge: The Better Way</h2>
+            <p style="text-align: center; color: #B8A899; font-size: 1.1rem; margin-bottom: 3rem;">
+                Intelligent, automated reminders that feel personal—not aggressive. Your clients get paid on time. You keep the relationship.
+            </p>
+            <div class="solution-cards">
+                <div class="solution-card">
+                    <strong>💬 SMS + Email Reminders</strong>
+                    <p>Soft, friendly automated reminders at the right moment—when the invoice is due or gently overdue. Feels like a personal follow-up, not a machine.</p>
+                </div>
+                <div class="solution-card">
+                    <strong>🎯 Smart Timing</strong>
+                    <p>Reminders stop when payment is received. No spam, no overkill. Respect the client relationship while protecting your cash flow.</p>
+                </div>
+                <div class="solution-card">
+                    <strong>📊 Xero Integration</strong>
+                    <p>Synced live with your Xero account. One connection, total automation. Works worldwide with support for 150+ currencies.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section>
+        <div class="container">
+            <h2>How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Connect</h3>
+                    <p>Link your Xero account. We sync live with your unpaid invoices. Instant setup.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Customize</h3>
+                    <p>Set your reminder schedule. Choose SMS, email, or both. Pick the tone you want.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Get Paid</h3>
+                    <p>Sit back. Automated reminders do the work. You focus on clients. Faster payments follow.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof -->
+    <section style="background: rgba(31, 35, 51, 0.5);">
+        <div class="container">
+            <h2>Real Users. Real Results.</h2>
+            <div class="testimonials">
+                <div class="testimonial">
+                    <p>"Reduced payment collection time from 45 days to just 12 days. PayNudge handles the follow-up automatically—no more awkward emails."</p>
+                    <div class="testimonial-author">— Sarah Mitchell, Design Agency Owner</div>
+                </div>
+                <div class="testimonial">
+                    <p>"SMS reminders actually get through. Email gets lost. My clients respond within 48 hours now. This is a game-changer for cash flow."</p>
+                    <div class="testimonial-author">— Freelance Consultant</div>
+                </div>
+                <div class="testimonial">
+                    <p>"No more guilt about chasing. PayNudge does it in a way that feels professional, not aggressive. Clients actually appreciate the reminder."</p>
+                    <div class="testimonial-author">— Agency Owner</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Beta Signup CTA -->
+    <section id="beta" style="padding: 0;">
+        <div class="beta-signup">
+            <div class="container">
+                <h2>Join the Beta for Free</h2>
+                <p>Be the first to automate your payment reminders. <strong>3 months free</strong> for honest feedback.</p>
+                <form style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div class="email-input-group">
+                        <input 
+                            type="email" 
+                            class="email-input" 
+                            placeholder="your@email.com" 
+                            required
+                            name="email"
+                        >
+                        <button type="submit" class="submit-button">Join Beta</button>
+                    </div>
+                    <p style="font-size: 0.9rem; opacity: 0.8;">No credit card. Just honest feedback. We'll be in touch within 24 hours.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p><strong style="color: #00D4A8;">PayNudge</strong> — Smart payment reminders for freelancers & SMEs</p>
+            <p>Email: <a href="mailto:contact@paynudge.co">contact@paynudge.co</a></p>
+            <p style="margin-top: 2rem; font-size: 0.9rem; opacity: 0.7;">© 2025 PayNudge. Early access beta. Works with Xero in 150+ countries.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Handle beta signup form
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.querySelector('input[name="email"]').value;
+            if (email) {
+                alert('Thanks for signing up! Check your email soon for beta access details.');
+                this.reset();
+            }
+        });
+    </script>
+</body>
+</html>
