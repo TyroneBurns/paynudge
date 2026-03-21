@@ -1,0 +1,1 @@
+ALTER TABLE public.reminder_rules ADD COLUMN IF NOT EXISTS subject_line text NOT NULL DEFAULT '';

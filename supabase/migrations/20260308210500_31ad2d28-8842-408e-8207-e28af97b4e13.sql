@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX organisations_user_id_unique ON public.organisations (user_id);

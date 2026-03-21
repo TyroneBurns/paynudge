@@ -1,0 +1,1 @@
+UPDATE campaign_contacts SET status = 'pending', error_message = NULL WHERE status = 'bounced' AND error_message LIKE '%rate_limit%'

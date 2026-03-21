@@ -1,0 +1,1 @@
+ALTER TABLE public.reminders ADD COLUMN IF NOT EXISTS opened_at timestamp with time zone DEFAULT NULL;

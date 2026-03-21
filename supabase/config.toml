@@ -1,0 +1,27 @@
+project_id = "muwppwiiearrnrlovcwu"
+
+[functions]
+  [functions.auth-email-hook]
+    verify_jwt = false
+  [functions.send-reminders]
+    verify_jwt = false
+  [functions.stripe-webhook]
+    verify_jwt = false
+  [functions.xero-callback]
+    verify_jwt = false
+  [functions.xero-sync]
+    verify_jwt = false
+  [functions.gmail-callback]
+    verify_jwt = false
+  [functions.track-open]
+    verify_jwt = false
+  [functions.campaign-sender]
+    verify_jwt = false
+  [functions.campaign-track]
+    verify_jwt = false
+  [functions.campaign-unsub]
+    verify_jwt = false
+  [functions.test-sms]
+    verify_jwt = false
+  [functions.test-email]
+    verify_jwt = false
